@@ -9,6 +9,22 @@ const getAllEvents = async (req, res) => {
     }
 };
 
+const getEventById = async (req, res) => {
+    const { eventId } = req.params
+    try {
+        const result = await pool.query("SELECT * FROM events WHERE id = $1", [eventId]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({error: "Event not found"});
+        }
+
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({error: "Server error"});
+    }
+}
+
 const getParticipantsByEvent = async (req, res) => {
     const { eventId } = req.params;
     try {
@@ -52,4 +68,25 @@ const deleteEvent = async (req, res) => {
     }
 }
 
-module.exports = { getAllEvents, getParticipantsByEvent, createEvent, deleteEvent};
+const updateEvent = async (req,res) => {
+    const { id } = req.params;
+    const { title, description, event_date, location, image_url } = req.body;
+
+    try {
+        const result = await pool.query(
+            "UPDATE events SET title = $1, description = $2, event_date = $3, location = $4, image_url = $5 WHERE id = $6 RETURNING *",
+            [title, description, event_date, location, image_url, id]
+        );
+
+        if (result.rowCount === 0) {
+            return res.status(404).json({error: "Event not found"});
+        }
+
+        res.status(200).json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({error: "Update failed"});
+    }
+}
+
+module.exports = { getAllEvents, getParticipantsByEvent, createEvent, deleteEvent, updateEvent, getEventById};

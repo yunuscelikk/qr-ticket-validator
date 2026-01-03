@@ -2,11 +2,13 @@ const express = require('express');
 const pool = require('./config/db'); 
 const initDatabase = require('./services/dbInit');
 const eventRoutes = require("./routes/eventRoutes");
+const userRoutes = require("./routes/userRoutes");
 require("dotenv").config();
 
 const app = express();
 app.use(express.json()); 
 app.use("/api/events", eventRoutes);
+app.use("/api/users", userRoutes)
 
 
 initDatabase();
