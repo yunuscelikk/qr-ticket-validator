@@ -1,5 +1,5 @@
-const sequelize = require("../config/db");
-const { Event } = require('../../models');
+const { Event, Sequelize } = require('../../models');
+const { Participant } = require("../../models");
 
 const getAllEvents = async (req, res) => {
     try {
@@ -88,15 +88,25 @@ const updateEvent = async (req, res) => {
     }
 };
 
-// const getParticipantsByEvent = async (req, res) => {
-//     const { eventId } = req.params;
-//     try {
-//         const result = await pool.query("SELECT * FROM participants WHERE event_id = $1", [eventId]);
-//         res.status(200).json(result.rows);
-//     } catch (err) {
-//         res.status(500).json({error: "Participants cant fetch"});
-//     }
-// };
+const getParticipantsByEvent = async (req, res) => {
+    const { eventId } = req.params;
+    try {
+        const participants = await Participant.findAll({
+            where: {
+                event_id: eventId
+            }
+        });
+        if (participants.length === 0) {
+            return res.status(404).json({
+                error: "No participants found for this event"
+            });
+        }
+        res.status(200).json(participants)
+        
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({error: "Could not fetch participants"});
+    }
+};
 
-
-module.exports = { getAllEvents, getEventById, createEvent, deleteEvent, updateEvent };
+module.exports = { getAllEvents, getEventById, createEvent, deleteEvent, updateEvent, getParticipantsByEvent };
