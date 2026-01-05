@@ -17,6 +17,16 @@ module.exports = (sequelize, DataTypes) => {
     full_name: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    qr_code: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
+      unique: true
+    },
+    checked_in_at: {
+      type: DataTypes.DATE,
+      allowNull: true
     }
   }, {
     sequelize,

@@ -2,6 +2,7 @@ const express = require('express');
 const sequelize = require('./config/db'); 
 const eventRoutes = require("./routes/eventRoutes");
 const userRoutes = require("./routes/userRoutes");
+const participantRoutes = require("./routes/participantRoutes")
 require("dotenv").config();
 
 const app = express();
@@ -9,6 +10,7 @@ app.use(express.json());
 
 app.use("/api/events", eventRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/participants", participantRoutes);
 
 (async () => {
   try {

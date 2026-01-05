@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const eventController = require("../controllers/eventController")
 const participantController = require("../controllers/participantController")
 
-router.get("/:eventId/participants", eventController.getParticipantsByEvent);
-router.get();
+router.get('/event/:eventId', participantController.getParticipantsByEvent);
 
-router.post();
+router.post('/', participantController.createParticipant);
+router.post('/check-in', participantController.checkInParticipant);
 
-router.delete();
+module.exports = router;
