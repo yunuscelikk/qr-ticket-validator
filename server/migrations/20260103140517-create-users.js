@@ -9,6 +9,10 @@ module.exports = {
         autoIncrement: true,
         allowNull: false
       },
+      full_name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       email: {
         type: Sequelize.STRING,
         unique: true,
@@ -18,7 +22,13 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false
       },
-      created_at: {
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW')
+      },
+      updatedAt: {
+        allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('NOW')
       }

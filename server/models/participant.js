@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     qr_code: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -32,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Participant',
     tableName: 'participants',
-    timestamps: false,
+    timestamps: true,
     underscored: false
   });
   
