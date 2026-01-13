@@ -4,6 +4,7 @@ import 'package:eventgate/screens/home_screen.dart';
 import 'package:eventgate/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'core/app_theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,16 +25,7 @@ class MyApp extends StatelessWidget {
         title: 'EventGate',
         debugShowCheckedModeBanner: false,
 
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-
-          inputDecorationTheme: const InputDecorationTheme(
-            border: OutlineInputBorder(),
-            filled: true,
-            fillColor: Colors.white,
-          ),
-        ),
+        theme: AppTheme.lightTheme,
 
         home: const AuthWrapper(),
       ),
