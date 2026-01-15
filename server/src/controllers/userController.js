@@ -19,7 +19,9 @@ const createUser = async (req, res) => {
             email,
             password
         });
-        res.status(201).json(user);
+        const userResponse = user.toJSON();
+        delete userResponse.password;
+        res.status(201).json(userResponse);
     } catch (err) {
         console.error(err);
         res.status(500).json({error: "User creation failed"});
