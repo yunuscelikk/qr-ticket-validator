@@ -4,7 +4,7 @@ const { User } = require("../../models")
 const getAllUsers = async (req, res) => {
     try {
         const users = await User.findAll({
-            order: [['created_at', 'ASC']]
+            order: [['createdAt', 'ASC']]
         });
         res.status(200).json(users);
     } catch(err) {
@@ -19,7 +19,9 @@ const createUser = async (req, res) => {
             email,
             password
         });
-        res.status(201).json(user);
+        const userResponse = user.toJSON();
+        delete userResponse.password;
+        res.status(201).json(userResponse);
     } catch (err) {
         console.error(err);
         res.status(500).json({error: "User creation failed"});

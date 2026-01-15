@@ -11,7 +11,7 @@ module.exports = {
       },
       full_name: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: true
       },
       email: {
         type: Sequelize.STRING,
