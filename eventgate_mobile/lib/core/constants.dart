@@ -1,6 +1,6 @@
 class AppConstants {
   static const String baseUrl = "http://192.168.1.227:3000/api";
-
+  // 192.168.1.227
   static const String loginEndpoint = "/auth/login";
 
   static const String eventsEndpoint = "/events";
