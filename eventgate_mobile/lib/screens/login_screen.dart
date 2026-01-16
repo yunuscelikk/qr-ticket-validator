@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 11),
                       Text(
                         "Bilet Kontrol Paneli",
                         style: TextStyle(
