@@ -39,6 +39,7 @@ dependencies:
   dio:
   mobile_scanner:
   lucide_icons_flutter:
+  cached_network_image:
 
 dev_dependencies:
   flutter_test:

@@ -65,4 +65,11 @@ class AuthProvider extends ChangeNotifier {
     _isLoading = value;
     notifyListeners();
   }
+
+  Future<void> logout() async {
+    await _storage.delete(key: AppConstants.authTokenKey);
+    _user = null;
+    _errorMessage = null;
+    notifyListeners();
+  }
 }

@@ -3,12 +3,14 @@ class EventModel {
   final String title;
   final String description;
   final DateTime eventDate;
+  final String? imageUrl;
 
   EventModel({
     required this.id,
     required this.title,
     required this.description,
     required this.eventDate,
+    required this.imageUrl,
   });
 
   factory EventModel.fromJson(Map<String, dynamic> json) {
@@ -17,6 +19,7 @@ class EventModel {
       title: json['title'],
       description: json['description'] ?? '',
       eventDate: DateTime.parse(json['event_date']),
+      imageUrl: json['image_url'],
     );
   }
 
