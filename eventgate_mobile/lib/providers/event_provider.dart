@@ -46,4 +46,35 @@ class EventProvider extends ChangeNotifier {
     _isLoading = value;
     notifyListeners();
   }
+
+  Future<Map<String, dynamic>> checkInParticipant(
+    int eventId,
+    String qrCode,
+  ) async {
+    try {
+      final response = await _apiClient.dio.post(
+        AppConstants.checkInEndpoint,
+        data: {'event_id': eventId, 'qr_code': qrCode},
+      );
+      if (response.statusCode == 200) {
+        return {
+          'success': true,
+          'message': response.data['message'] ?? 'Giriş Onaylandı ✅',
+          'participant': response.data['participant'],
+        };
+      }
+    } on DioException catch (e) {
+      String errorMsg = 'Bilinmeyen hata';
+
+      if (e.response != null) {
+        errorMsg = e.response?.data['error'] ?? 'İşlem başarısız';
+      }
+
+      return {'success': false, 'message': errorMsg};
+    } catch (e) {
+      return {'success': false, 'message': 'Bağlantı hatası ❌'};
+    }
+
+    return {'success': false, 'message': 'İşlem tamamlanamadı'};
+  }
 }

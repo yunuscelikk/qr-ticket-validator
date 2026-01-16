@@ -137,7 +137,9 @@ class _HomeScreenState extends State<HomeScreen> {
           // Seçiliyse QR ekranına git (Seçili event ID'yi buraya parametre geçebiliriz ileride)
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const QrScanScreen()),
+            MaterialPageRoute(
+              builder: (context) => QrScanScreen(eventId: _selectedEventId!),
+            ),
           );
         },
         // Seçim yapılmadıysa buton gri (pasif) görünür
