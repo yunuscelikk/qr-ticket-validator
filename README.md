@@ -1,4 +1,4 @@
-<img width="2681" height="714" alt="Group 13" src="https://github.com/user-attachments/assets/2bb9758a-b497-44e1-a20f-8da1494a8f13" />
+<img width="100%" alt="EventGate Banner" src="https://github.com/user-attachments/assets/2bb9758a-b497-44e1-a20f-8da1494a8f13" />
 
 #### Event Management and QR Ticket Verification System developed with Flutter, Node.js and Docker.
 
@@ -22,7 +22,38 @@
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
 
+## Key Features
+
+- **Secure Authentication:** User login system protected by JWT (JSON Web Tokens).
+- **QR Code Scanning:** Fast and reliable QR verification using the `mobile_scanner` library.
+- **Real-time Validation:** Server-side check-in logic that prevents duplicate entries and invalid tickets.
+- **Dockerized Environment:** Seamless deployment and setup using Docker Compose.
+- **State Management:** Efficient UI updates using the Provider pattern in Flutter.
+- **Interactive UI:** Smooth UX with Pull-to-Refresh, loading states, and custom result dialogs.
+
+## Screenshots
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/7ba18498-2aac-4b37-8130-dd28998d1d58" width="250" alt="Login Screen">
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/66ffdb8c-1e4f-4122-b1ea-11fd0bacc4b6" width="250" alt="Event List">
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/a370a223-f0d8-43cf-92d4-9255c023821a" width="250" alt="QR Scan">
+    </td>
+  </tr>
+</table>
+
+## App Demo
+
+[![EventGate Demo](https://img.youtube.com/vi/JLVuiWvJUr4/hqdefault.jpg)](https://www.youtube.com/shorts/JLVuiWvJUr4)
+
 ## System Architecture
+
+The application adopts a client-server architecture containerized with Docker.
 
 ```mermaid
 graph LR
