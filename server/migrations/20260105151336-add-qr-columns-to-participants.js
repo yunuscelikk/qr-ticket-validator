@@ -14,22 +14,10 @@ module.exports = {
       type: Sequelize.DATE,
       allowNull: true
     });
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
   },
 
   async down (queryInterface, Sequelize) {
     await queryInterface.removeColumn('participants', 'qr_code');
     await queryInterface.removeColumn('participants', 'checked_in_at');
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
   }
 };

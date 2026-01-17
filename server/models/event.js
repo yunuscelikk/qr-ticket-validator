@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Event',
     tableName: 'events',
-    timestamps: false, // created at ve updated at için true olmalı
+    timestamps: false,
     underscored: true
   });
   
