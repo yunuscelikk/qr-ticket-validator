@@ -59,7 +59,7 @@ class EventProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         return {
           'success': true,
-          'message': response.data['message'] ?? 'Giriş Onaylandı ✅',
+          'message': response.data['message'] ?? 'Giriş Onaylandı',
           'participant': response.data['participant'],
         };
       }
@@ -72,7 +72,7 @@ class EventProvider extends ChangeNotifier {
 
       return {'success': false, 'message': errorMsg};
     } catch (e) {
-      return {'success': false, 'message': 'Bağlantı hatası ❌'};
+      return {'success': false, 'message': 'Bağlantı hatası'};
     }
 
     return {'success': false, 'message': 'İşlem tamamlanamadı'};

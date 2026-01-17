@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
       resizeToAvoidBottomInset: true,
       body: Container(
         width: double.infinity,
-        height: size.height, // Tüm ekranı kapla
+        height: size.height,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SafeArea(
               bottom: false,
               child: SizedBox(
-                height: size.height * 0.35, // Dinamik yükseklik
+                height: size.height * 0.35,
                 width: double.infinity,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
