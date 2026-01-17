@@ -1,6 +1,7 @@
 class AppConstants {
-  static const String baseUrl = "http://192.168.1.224:3000/api";
-  // 192.168.1.227
+  // Change this to your local IP for physical devices.
+  static const String baseUrl = "http://localhost:3000/api";
+
   static const String loginEndpoint = "/auth/login";
 
   static const String eventsEndpoint = "/events";
