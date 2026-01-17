@@ -43,7 +43,7 @@ const checkInParticipant = async (req, res) => {
   try {
     const { qr_code, event_id } = req.body;
 
-    console.log("Gelen QR Kodu:", qr_code);
+    console.log("QR Code:", qr_code);
 
     if (!qr_code || !event_id) {
       return res
@@ -51,9 +51,9 @@ const checkInParticipant = async (req, res) => {
         .json({ error: "QR Code and Event ID are required" });
     }
     if (!isValidUUID(qr_code)) {
-      console.log("Format Hatalı: UUID değil.");
+      console.log("Bad format: not UUID.");
       return res.status(400).json({
-        error: "Geçersiz QR Formatı! (Sistemimize ait bir bilet değil)",
+        error: "Invalid QR Format!",
       });
     }
     const participant = await Participant.findOne({
@@ -61,18 +61,18 @@ const checkInParticipant = async (req, res) => {
     });
 
     if (!participant) {
-      return res.status(404).json({ error: "Bilet bulunamadı!" });
+      return res.status(404).json({ error: "Ticket not found!" });
     }
 
     if (participant.event_id != event_id) {
       return res
         .status(403)
-        .json({ error: "Bu bilet başka bir etkinliğe ait!" });
+        .json({ error: "This ticket belongs to another event!" });
     }
 
     if (participant.checked_in_at !== null) {
       return res.status(409).json({
-        error: "Bu bilet zaten kullanılmış!",
+        error: "This ticket has already been used!",
         check_in_time: participant.checked_in_at,
       });
     }
@@ -81,12 +81,12 @@ const checkInParticipant = async (req, res) => {
     await participant.save();
 
     res.status(200).json({
-      message: "Giriş Başarılı ✅",
+      message: "Login Successful",
       participant: participant,
     });
   } catch (err) {
-    console.error("Check-in Error Detayı:", err); // Hatayı detaylı görelim
-    res.status(500).json({ error: "Check-in işlemi sırasında sunucu hatası." });
+    console.error("Check-in Error Detail:", err);
+    res.status(500).json({ error: "Server error during check-in." });
   }
 };
 
