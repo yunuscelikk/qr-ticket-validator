@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!success && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(authProvider.errorMessage ?? 'Bir hata oluştu'),
+          content: Text(authProvider.errorMessage ?? 'An error occurred'),
           backgroundColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
         ),
@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 11),
                       Text(
-                        "Bilet Kontrol Paneli",
+                        "Ticket Verification System",
                         style: TextStyle(
                           color: Colors.white70,
                           fontSize: isSmallScreen ? 16 : 18,
@@ -128,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Column(
                             children: <Widget>[
                               Text(
-                                "Giriş Yap",
+                                "Login",
                                 style: TextStyle(
                                   fontSize: 26,
                                   fontWeight: .bold,
@@ -143,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 keyboardType: TextInputType.emailAddress,
                                 textInputAction: TextInputAction.next,
                                 decoration: InputDecoration(
-                                  labelText: "E-Posta Adresi",
+                                  labelText: "Email",
                                   hintText: "admin@eventgate.com",
                                   prefixIcon: Icon(
                                     Icons.email_outlined,
@@ -151,10 +151,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 validator: (value) {
-                                  if (value == null || value.isEmpty)
-                                    return 'Lütfen e-posta girin';
-                                  if (!value.contains('@'))
-                                    return 'Geçerli bir e-posta girin';
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter email';
+                                  }
+                                  if (!value.contains('@')) {
+                                    return 'Enter a valid email';
+                                  }
                                   return null;
                                 },
                               ),
@@ -165,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 textInputAction: TextInputAction.done,
                                 onFieldSubmitted: (_) => _submitLogin(),
                                 decoration: InputDecoration(
-                                  labelText: "Şifre",
+                                  labelText: "Password",
                                   hintText: "******",
                                   prefixIcon: Icon(
                                     Icons.lock_outline,
@@ -187,8 +189,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 validator: (value) {
-                                  if (value == null || value.length < 6)
-                                    return 'Şifre en az 6 karakter olmalı';
+                                  if (value == null || value.length < 6) {
+                                    return 'Password must be at least 6 characters';
+                                  }
                                   return null;
                                 },
                               ),
@@ -226,7 +229,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               ),
                                             )
                                           : const Text(
-                                              "Giriş Yap",
+                                              "Login",
                                               style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,

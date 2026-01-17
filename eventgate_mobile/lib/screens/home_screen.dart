@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
       Provider.of<EventProvider>(context, listen: false).fetchEvents();
     });
   }
+
   String _formatDate(DateTime date) {
     return "${date.day.toString().padLeft(2, '0')}.${date.month.toString().padLeft(2, '0')}.${date.year}";
   }
@@ -36,11 +37,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: const Text('Etkinlikler'),
+        title: const Text('Events'),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout_rounded),
-            tooltip: 'Çıkış Yap',
+            tooltip: 'Logout',
             onPressed: () {
               Provider.of<AuthProvider>(context, listen: false).logout();
               Navigator.of(context).pushReplacement(
@@ -76,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () => eventProvider.fetchEvents(),
-                    child: const Text('Tekrar Dene'),
+                    child: const Text('Try again'),
                   ),
                 ],
               ),
@@ -90,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Icon(Icons.event_busy, size: 64, color: Colors.grey[400]),
                   const SizedBox(height: 16),
                   Text(
-                    'Henüz etkinlik bulunmuyor.',
+                    'No events yet.',
                     style: TextStyle(color: Colors.grey[600], fontSize: 16),
                   ),
                 ],
@@ -117,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
           if (_selectedEventId == null) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text('Lütfen işlem yapmak için bir etkinlik seçin.'),
+                content: Text('Please select an event to continue'),
                 behavior: SnackBarBehavior.floating,
               ),
             );
@@ -135,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
             : theme.primaryColor,
         icon: const Icon(Icons.qr_code_scanner, color: Colors.white),
         label: const Text(
-          'QR Okut',
+          'Scan QR',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -145,6 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
   Widget _buildEventCard(EventModel event, ThemeData theme) {
     final bool isSelected = _selectedEventId == event.id;
 
@@ -217,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Text(
                       event.description.isNotEmpty
                           ? event.description
-                          : 'Açıklama bulunmuyor.',
+                          : 'No description.',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: theme.textTheme.bodySmall?.copyWith(
@@ -239,6 +241,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
   Widget _buildEventImage(EventModel event, ThemeData theme) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),

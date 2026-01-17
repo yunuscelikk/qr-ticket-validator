@@ -55,7 +55,7 @@ class _QrScanScreenState extends State<QrScanScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Giriş Kontrol'),
+        title: const Text('Entry control'),
         actions: [
           IconButton(
             icon: ValueListenableBuilder(
@@ -102,7 +102,7 @@ class _QrScanScreenState extends State<QrScanScreen> {
                 borderRadius: BorderRadius.circular(30),
               ),
               child: const Text(
-                'QR Kodu karenin içine tutun',
+                'Hold the QR Code inside the square',
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),
@@ -136,7 +136,7 @@ class _QrScanScreenState extends State<QrScanScreen> {
           ),
           const SizedBox(height: 20),
           Text(
-            success ? 'Giriş Başarılı!' : 'Hata!',
+            success ? 'Login successful!' : 'Error!',
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
@@ -170,7 +170,7 @@ class _QrScanScreenState extends State<QrScanScreen> {
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            child: const Text('Tamam'),
+            child: const Text('Ok'),
           ),
         ),
       ],
@@ -242,7 +242,6 @@ class QrScannerOverlayShape extends ShapeBorder {
       ..color = borderColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = borderWidth;
-
 
     final cutOutRect = Rect.fromCenter(
       center: rect.center,
