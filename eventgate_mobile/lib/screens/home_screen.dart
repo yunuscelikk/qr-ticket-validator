@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:cached_network_image/cached_network_image.dart'; // Resim paketi
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../providers/auth_provider.dart';
 import '../providers/event_provider.dart';
@@ -16,19 +16,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // Seçili olan etkinliğin ID'si
   int? _selectedEventId;
 
   @override
   void initState() {
     super.initState();
-    // Ekran açılır açılmaz verileri çek
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<EventProvider>(context, listen: false).fetchEvents();
     });
   }
-
-  // Tarih Formatlayıcı
   String _formatDate(DateTime date) {
     return "${date.day.toString().padLeft(2, '0')}.${date.month.toString().padLeft(2, '0')}.${date.year}";
   }
@@ -56,13 +52,11 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Consumer<EventProvider>(
         builder: (context, eventProvider, child) {
-          // A) Yükleniyor
           if (eventProvider.isLoading) {
             return Center(
               child: CircularProgressIndicator(color: theme.primaryColor),
             );
           }
-          // B) Hata
           if (eventProvider.errorMessage != null) {
             return Center(
               child: Column(
@@ -88,7 +82,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           }
-          // C) Liste Boş
           if (eventProvider.events.isEmpty) {
             return Center(
               child: Column(
@@ -104,7 +97,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           }
-          // D) Dolu Liste
           return RefreshIndicator(
             onRefresh: () => eventProvider.fetchEvents(),
             color: theme.primaryColor,
@@ -119,12 +111,9 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
       ),
-
-      // 3. QR OKUT BUTONU
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // Etkinlik seçilmemişse uyarı ver
           if (_selectedEventId == null) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
@@ -134,7 +123,6 @@ class _HomeScreenState extends State<HomeScreen> {
             );
             return;
           }
-          // Seçiliyse QR ekranına git (Seçili event ID'yi buraya parametre geçebiliriz ileride)
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -142,7 +130,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           );
         },
-        // Seçim yapılmadıysa buton gri (pasif) görünür
         backgroundColor: _selectedEventId == null
             ? Colors.grey
             : theme.primaryColor,
@@ -158,15 +145,12 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-  // KART TASARIMI
   Widget _buildEventCard(EventModel event, ThemeData theme) {
     final bool isSelected = _selectedEventId == event.id;
 
     return GestureDetector(
       onTap: () {
         setState(() {
-          // Zaten seçiliyse kaldır, değilse seç
           if (_selectedEventId == event.id) {
             _selectedEventId = null;
           } else {
@@ -180,7 +164,6 @@ class _HomeScreenState extends State<HomeScreen> {
         decoration: BoxDecoration(
           color: theme.cardColor,
           borderRadius: BorderRadius.circular(16),
-          // Seçiliyse kalın renkli çerçeve, değilse şeffaf/ince
           border: isSelected
               ? Border.all(color: theme.primaryColor, width: 2.5)
               : Border.all(color: Colors.transparent, width: 1),
@@ -196,18 +179,13 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.all(12.0),
           child: Row(
             children: [
-              // RESİM BÖLÜMÜ (Ayrı fonksiyona alındı)
               _buildEventImage(event, theme),
-
               const SizedBox(width: 16),
-
-              // BİLGİ BÖLÜMÜ
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Tarih
                     Row(
                       children: [
                         Icon(
@@ -226,7 +204,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     const SizedBox(height: 6),
-                    // Başlık
                     Text(
                       event.title,
                       maxLines: 1,
@@ -237,7 +214,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    // Açıklama
                     Text(
                       event.description.isNotEmpty
                           ? event.description
@@ -252,7 +228,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              // Seçim İkonu (Tik)
               if (isSelected)
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
@@ -264,8 +239,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-  // RESİM YÜKLEME MANTIĞI (Production Ready)
   Widget _buildEventImage(EventModel event, ThemeData theme) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
@@ -276,7 +249,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ? CachedNetworkImage(
                 imageUrl: event.imageUrl!,
                 fit: BoxFit.cover,
-                // Resim yüklenirken dönen çark
                 placeholder: (context, url) => Container(
                   color: Colors.grey[100],
                   child: Center(
@@ -286,10 +258,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                // Resim hatasında (404 vb.) placeholder göster
                 errorWidget: (context, url, error) => _buildPlaceholder(theme),
               )
-            : _buildPlaceholder(theme), // URL yoksa placeholder
+            : _buildPlaceholder(theme),
       ),
     );
   }

@@ -178,10 +178,6 @@ class _QrScanScreenState extends State<QrScanScreen> {
   }
 }
 
-// Mobile Scanner Overlay için özel bir sınıf (Kütüphaneden gelmiyorsa manuel eklenir)
-// Not: MobileScanner son sürümlerinde overlay built-in gelmeyebilir,
-// o yüzden aşağıya manuel ShapeBorder ekliyorum.
-// EĞER KÜTÜPHANE HATASI ALIRSAN BUNU KULLAN:
 class QrScannerOverlayShape extends ShapeBorder {
   final Color borderColor;
   final double borderWidth;
@@ -233,8 +229,6 @@ class QrScannerOverlayShape extends ShapeBorder {
   void paint(Canvas canvas, Rect rect, {TextDirection? textDirection}) {
     final width = rect.width;
     final borderWidthSize = width / 2;
-    final height = rect.height;
-    final borderOffset = borderWidth / 2;
     final mBorderLength = borderLength > cutOutSize / 2 + borderWidth * 2
         ? borderWidthSize / 2
         : borderLength;
@@ -249,9 +243,6 @@ class QrScannerOverlayShape extends ShapeBorder {
       ..style = PaintingStyle.stroke
       ..strokeWidth = borderWidth;
 
-    final boxPaint = Paint()
-      ..color = borderColor
-      ..style = PaintingStyle.fill;
 
     final cutOutRect = Rect.fromCenter(
       center: rect.center,
